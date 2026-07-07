@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!--
+      Базовые SEO-теги (фолбэк для краулеров без JS).
+      Теги title / description / canonical / og:* / twitter:* на каждой
+      странице формирует react-helmet-async (см. src/components/Seo.jsx),
+      поэтому здесь их не дублируем, чтобы не плодить конфликтующие теги.
+    -->
+    <title>ME Event Agency — организация мероприятий под ключ</title>
+    <meta name="keywords" content="event агентство, организация мероприятий, свадьба под ключ, организация праздников, ME Event" />
+    <meta name="author" content="ME Event Agency" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:site_name" content="ME Event Agency" />
+    <meta property="og:locale" content="ru_RU" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "ME Event Agency",
+        "url": "https://me-event.ru/",
+        "email": "mechta.event@gmail.com",
+        "telephone": "+7 (903) 173-76-65",
+        "description": "Event-агентство полного цикла. Организация свадеб и праздников от идеи до реализации.",
+        "sameAs": [
+          "https://t.me/dianavabien",
+          "https://instagram.com/mechta.event",
+          "https://vk.com/mechta.event"
+        ]
+      }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Jost:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

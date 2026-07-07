@@ -1,0 +1,161 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: background 0.35s ease, box-shadow 0.35s ease;
+  background: transparent;
+}
+
+/*
+ * Важно: НЕ используем backdrop-filter/filter/transform на .header —
+ * иначе .header становится containing block для fixed-потомков и
+ * оверлей мобильного меню (.nav) схлопывается до высоты шапки.
+ */
+.scrolled {
+  background: #ffffff;
+  box-shadow: 0 1px 0 var(--color-line);
+}
+
+.inner {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #fff;
+  transition: color 0.35s ease;
+}
+
+.scrolled .logo {
+  color: var(--color-text);
+}
+
+.nav {
+  display: flex;
+  gap: 34px;
+}
+
+.navLink {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 13px;
+  color: #fff;
+  padding: 4px 0;
+  position: relative;
+  transition: color 0.25s ease;
+}
+
+.scrolled .navLink {
+  color: var(--color-text);
+}
+
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.navLink:hover {
+  color: var(--color-accent);
+}
+
+.navLink:hover::after {
+  width: 100%;
+}
+
+/* Бургер (мобильный) */
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 6px;
+}
+
+.burger span {
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: #fff;
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+}
+
+.scrolled .burger span {
+  background: var(--color-text);
+}
+
+.barTop {
+  transform: translateY(7px) rotate(45deg);
+}
+.barMid {
+  opacity: 0;
+}
+.barBot {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (max-width: 860px) {
+  .burger {
+    display: flex;
+    position: relative;
+    z-index: 2; /* поверх оверлея меню */
+  }
+
+  .logo {
+    position: relative;
+    z-index: 2; /* логотип остаётся поверх оверлея */
+  }
+
+  .nav {
+    position: fixed;
+    inset: 0;
+    background: var(--color-bg); /* полностью непрозрачный фон */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    visibility: hidden;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Компаунд-селектор (.nav.navOpen) выигрывает по специфичности —
+     состояние «открыто» гарантированно перекрывает базовое. */
+  .nav.navOpen {
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  /* В открытом мобильном меню фон белый — делаем ссылки тёмными */
+  .navOpen .navLink,
+  .scrolled .navOpen .navLink {
+    color: var(--color-text);
+    font-size: 15px;
+    letter-spacing: 0.22em;
+  }
+
+  .navLink::after {
+    display: none; /* без подчёркивания в мобильном меню — строже */
+  }
+
+  /* Когда меню открыто, полоски бургера всегда тёмные (белый фон) */
+  .burger span {
+    background: var(--color-text);
+  }
+}
