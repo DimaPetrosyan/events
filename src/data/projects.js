@@ -10,6 +10,7 @@ import hero2 from '../assets/hero-2.jpg'
 import hero3 from '../assets/hero-3.jpg'
 import hero4 from '../assets/hero-4.jpg'
 import contactsPhoto from '../assets/contacts.jpg'
+import aboutPhoto from '../assets/about.jpg'
 
 const ph = (seed, w = 1200, h = 800) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`
@@ -17,7 +18,7 @@ const ph = (seed, w = 1200, h = 800) =>
 // Слайдер первой секции — реальные фотографии
 export const heroSlides = [hero1, hero2, hero3, hero4]
 
-export const aboutImage = ph('me-about', 1200, 1400)
+export const aboutImage = aboutPhoto
 
 // Изображения для карточек секции «Почему мы?»
 export const whyImages = [
