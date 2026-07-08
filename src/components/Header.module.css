@@ -28,16 +28,23 @@
 }
 
 .logo {
-  font-family: var(--font-serif);
-  font-size: 26px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #fff;
-  transition: color 0.35s ease;
+  display: flex;
+  align-items: center;
+  line-height: 0;
 }
 
-.scrolled .logo {
-  color: var(--color-text);
+.logo img {
+  height: 50px;
+  width: auto;
+  display: block;
+  /* Логотип одноцветный: над тёмным hero делаем белым, на светлом фоне — родной цвет */
+  filter: brightness(0) invert(1);
+  transition: filter 0.35s ease;
+}
+
+.scrolled .logo img,
+.menuOpen .logo img {
+  filter: none;
 }
 
 .nav {
@@ -154,8 +161,9 @@
     display: none; /* без подчёркивания в мобильном меню — строже */
   }
 
-  /* Когда меню открыто, полоски бургера всегда тёмные (белый фон) */
-  .burger span {
+  /* При скролле и при открытом меню фон светлый — полоски бургера тёмные */
+  .scrolled .burger span,
+  .menuOpen .burger span {
     background: var(--color-text);
   }
 }

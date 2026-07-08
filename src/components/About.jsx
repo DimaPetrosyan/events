@@ -12,7 +12,7 @@ export default function About() {
       <div className={styles.body}>
         <div className={styles.bodyInner}>
           <p className="section-kicker" style={{ textAlign: 'left' }}>
-            ME Event Agency
+            Студия МЕ
           </p>
           <h2 className={styles.title}>{about.title}</h2>
           {about.paragraphs.map((text, i) => (

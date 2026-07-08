@@ -3,63 +3,116 @@
   background: var(--color-cream);
 }
 
-/* Горизонтальная прокручиваемая лента шагов */
-.track {
-  margin-top: 56px;
+/* ==== Горизонтальный таймлайн (десктоп) ==== */
+.timeline {
+  margin-top: 64px;
   display: flex;
-  gap: 0;
-  overflow-x: auto;
-  padding: 0 24px 20px;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-}
-
-.track::-webkit-scrollbar {
-  height: 6px;
-}
-.track::-webkit-scrollbar-thumb {
-  background: var(--color-line);
-  border-radius: 3px;
-}
-
-.step {
-  scroll-snap-align: start;
-  flex: 0 0 clamp(220px, 24vw, 300px);
-  padding: 12px 32px;
-  border-left: 1px solid var(--color-line);
   position: relative;
 }
 
-.step:last-child {
-  border-right: 1px solid var(--color-line);
+/* Горизонтальная линия по центру */
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--color-line);
 }
 
-.num {
-  font-family: var(--font-serif);
-  font-size: 46px;
-  font-weight: 400;
+.item {
+  flex: 1 1 0;
+  min-width: 0;
+  position: relative;
+  height: 420px;
+}
+
+/* Узел-кружок с номером на линии */
+.node {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-cream);
+  border: 1px solid var(--color-accent);
   color: var(--color-accent);
-  line-height: 1;
-  display: block;
-  margin-bottom: 18px;
+  font-family: var(--font-serif);
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* Текстовый блок над/под линией */
+.content {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  text-align: center;
+}
+
+.up .content {
+  bottom: calc(50% + 38px);
+}
+
+.down .content {
+  top: calc(50% + 38px);
 }
 
 .stepTitle {
-  font-size: 21px;
+  font-size: 18px;
   font-weight: 400;
   margin-bottom: 10px;
 }
 
 .stepText {
   color: var(--color-muted);
-  font-size: 15px;
+  font-size: 13px;
+  line-height: 1.55;
 }
 
-@media (max-width: 620px) {
+/* ==== Вертикальный таймлайн (мобильные) — без горизонтального скролла ==== */
+@media (max-width: 860px) {
   .process {
     padding: 72px 0;
   }
-  .step {
-    padding: 12px 24px;
+
+  .timeline {
+    flex-direction: column;
+    margin-top: 44px;
+  }
+
+  .timeline::before {
+    left: 24px;
+    right: auto;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    height: auto;
+  }
+
+  .item {
+    height: auto;
+    padding: 16px 0 16px 68px;
+  }
+
+  .node {
+    left: 24px;
+    top: 22px;
+    transform: translate(-50%, 0);
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+
+  .up .content,
+  .down .content {
+    position: static;
+    text-align: left;
   }
 }

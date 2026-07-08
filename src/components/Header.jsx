@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { site } from '../data/site.js'
+import logo from '../assets/logo.svg'
 import styles from './Header.module.css'
 
 export default function Header() {
@@ -28,10 +29,14 @@ export default function Header() {
   const linkTo = (href) => (onHome ? href : `/${href}`)
 
   return (
-    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+    <header
+      className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${
+        open ? styles.menuOpen : ''
+      }`}
+    >
       <div className={styles.inner}>
-        <Link to="/" className={styles.logo} onClick={() => setOpen(false)}>
-          {site.brand}
+        <Link to="/" className={styles.logo} onClick={() => setOpen(false)} aria-label={site.brand}>
+          <img src={logo} alt={site.brand} />
         </Link>
 
         <nav className={`${styles.nav} ${open ? styles.navOpen : ''}`}>

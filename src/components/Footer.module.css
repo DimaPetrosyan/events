@@ -15,9 +15,11 @@
 }
 
 .brand {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  letter-spacing: 0.06em;
+  height: 64px;
+  width: auto;
+  display: block;
+  /* Логотип одноцветный — на тёмном фоне футера делаем светлым */
+  filter: brightness(0) invert(1);
 }
 
 .socials {
