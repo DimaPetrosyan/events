@@ -5,15 +5,17 @@
 // Чтобы подставить реальные фото — положите их в /public/images/
 // и замените ссылки ниже на пути вида '/images/tanec-1.jpg'.
 
+import hero1 from '../assets/hero-1.jpg'
+import hero2 from '../assets/hero-2.jpg'
+import hero3 from '../assets/hero-3.jpg'
+import hero4 from '../assets/hero-4.jpg'
+import contactsPhoto from '../assets/contacts.jpg'
+
 const ph = (seed, w = 1200, h = 800) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`
 
-export const heroSlides = [
-  ph('me-hero-1', 2400, 1200),
-  ph('me-hero-2', 2400, 1200),
-  ph('me-hero-3', 2400, 1200),
-  ph('me-hero-4', 2400, 1200),
-]
+// Слайдер первой секции — реальные фотографии
+export const heroSlides = [hero1, hero2, hero3, hero4]
 
 export const aboutImage = ph('me-about', 1200, 1400)
 
@@ -26,7 +28,7 @@ export const whyImages = [
   ph('me-why-5', 800, 1000),
 ]
 
-export const contactsImage = ph('me-contacts', 1200, 1400)
+export const contactsImage = contactsPhoto
 
 export const projects = [
   {
