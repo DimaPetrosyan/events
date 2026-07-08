@@ -11,6 +11,7 @@ export default function Process() {
   return (
     <section className={styles.process} id="process">
       <div className="container">
+        <p className="section-kicker">Этапы работы</p>
         <h2 className="section-title">{process.title}</h2>
 
         {/* Два горизонтальных таймлайна: линия по центру, текст сверху/снизу.
