@@ -4,8 +4,14 @@
 }
 
 /* ==== Горизонтальный таймлайн (десктоп) ==== */
+.timelines {
+  margin-top: 56px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
 .timeline {
-  margin-top: 64px;
   display: flex;
   position: relative;
 }
@@ -25,7 +31,7 @@
   flex: 1 1 0;
   min-width: 0;
   position: relative;
-  height: 500px;
+  height: 380px;
 }
 
 /* Узел-кружок с номером на линии */
