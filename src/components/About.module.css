@@ -2,10 +2,9 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: stretch;
-  min-height: 78vh;
 }
 
-/* Фотография растянута на половину экрана */
+/* Фотография растянута на половину экрана, но по высоте вписывается в экран */
 .image {
   position: relative;
   overflow: hidden;
@@ -13,15 +12,15 @@
 
 .image img {
   width: 100%;
-  height: 100%;
+  height: 640px;
   object-fit: cover;
-  min-height: 480px;
+  display: block;
 }
 
 .body {
   display: flex;
   align-items: center;
-  padding: 80px clamp(24px, 6vw, 96px);
+  padding: 56px clamp(24px, 6vw, 96px);
   background: var(--color-bg);
 }
 
@@ -46,10 +45,10 @@
   }
 
   .body {
-    padding: 56px 24px 70px;
+    padding: 48px 24px 64px;
   }
 
   .image img {
-    min-height: 60vh;
+    height: 56vh;
   }
 }
