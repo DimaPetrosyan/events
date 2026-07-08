@@ -18,11 +18,11 @@ export default function Hero() {
   return (
     <section className={styles.hero} id="top">
       <div className={styles.slides}>
-        {heroSlides.map((src, i) => (
+        {heroSlides.map((slide, i) => (
           <div
-            key={src}
+            key={slide.src}
             className={`${styles.slide} ${i === index ? styles.active : ''}`}
-            style={{ backgroundImage: `url(${src})` }}
+            style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.focus }}
             aria-hidden={i !== index}
           />
         ))}

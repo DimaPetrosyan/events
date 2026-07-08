@@ -15,8 +15,15 @@ import aboutPhoto from '../assets/about.jpg'
 const ph = (seed, w = 1200, h = 800) =>
   `https://picsum.photos/seed/${seed}/${w}/${h}`
 
-// Слайдер первой секции — реальные фотографии
-export const heroSlides = [hero1, hero2, hero3, hero4]
+// Слайдер первой секции — реальные фотографии.
+// focus — точка фокуса (background-position): на узких/мобильных экранах
+// пейзажные фото кадрируются по центру, focus держит субъект в кадре.
+export const heroSlides = [
+  { src: hero1, focus: '50% 50%' },
+  { src: hero2, focus: '50% 45%' },
+  { src: hero3, focus: '30% 50%' },
+  { src: hero4, focus: '45% 50%' },
+]
 
 export const aboutImage = aboutPhoto
 
