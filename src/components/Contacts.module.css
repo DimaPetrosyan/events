@@ -12,6 +12,8 @@
   width: 100%;
   height: 640px;
   object-fit: cover;
+  /* Держим лицо в кадре при landscape-кадрировании на узких экранах */
+  object-position: center 15%;
   display: block;
 }
 
