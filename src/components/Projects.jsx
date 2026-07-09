@@ -22,7 +22,9 @@ export default function Projects() {
               </div>
               <div className={styles.meta}>
                 <h3 className={styles.cardTitle}>{project.title}</h3>
-                <span className={styles.subtitle}>{project.subtitle}</span>
+                {project.subtitle && (
+                  <span className={styles.subtitle}>{project.subtitle}</span>
+                )}
               </div>
             </Link>
           ))}

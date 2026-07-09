@@ -22,7 +22,7 @@ export default function ProjectPage() {
     <article className={styles.page}>
       <Seo
         title={project.title}
-        description={`${project.title} — ${project.subtitle} от ME Event Agency. ${project.review.text.slice(0, 120)}`}
+        description={`${project.title}${project.subtitle ? ` — ${project.subtitle}` : ''} от ME Event Agency.`}
         path={`/project/${project.slug}`}
         image={project.hero}
       />
@@ -34,19 +34,25 @@ export default function ProjectPage() {
       >
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
-          <span className={styles.heroKicker}>{project.subtitle}</span>
+          {project.subtitle && (
+            <span className={styles.heroKicker}>{project.subtitle}</span>
+          )}
           <h1 className={styles.heroTitle}>{project.title}</h1>
         </div>
       </header>
 
       {/* Отзыв */}
-      <section className={styles.review}>
-        <div className="container">
-          <p className={styles.quoteMark}>“</p>
-          <blockquote className={styles.quote}>{project.review.text}</blockquote>
-          <p className={styles.author}>— {project.review.author}</p>
-        </div>
-      </section>
+      {project.review?.text && (
+        <section className={styles.review}>
+          <div className="container">
+            <p className={styles.quoteMark}>“</p>
+            <blockquote className={styles.quote}>{project.review.text}</blockquote>
+            {project.review.author && (
+              <p className={styles.author}>— {project.review.author}</p>
+            )}
+          </div>
+        </section>
+      )}
 
       {/* Галерея мероприятия */}
       <section className={styles.gallery}>
