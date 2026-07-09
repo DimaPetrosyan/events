@@ -11,7 +11,7 @@ export default function ProjectPage() {
     return (
       <section className={styles.missing}>
         <h1>Проект не найден</h1>
-        <Link to="/#projects" className={styles.back}>
+        <Link to="/#projects" state={{ instant: true }} className={styles.back}>
           ← Ко всем проектам
         </Link>
       </section>
@@ -68,7 +68,7 @@ export default function ProjectPage() {
       </section>
 
       <div className={styles.backWrap}>
-        <Link to="/#projects" className={styles.back}>
+        <Link to="/#projects" state={{ instant: true }} className={styles.back}>
           ← Ко всем проектам
         </Link>
       </div>

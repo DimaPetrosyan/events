@@ -7,19 +7,21 @@ import ProjectPage from './pages/ProjectPage.jsx'
 import NotFound from './pages/NotFound.jsx'
 
 function ScrollManager() {
-  const { pathname, hash } = useLocation()
+  const { pathname, hash, state } = useLocation()
   useEffect(() => {
     if (hash) {
       // Прокрутка к нужному разделу (#projects, #why, ...).
       // Элемент может ещё не отрендериться после смены маршрута/при прямом
       // заходе по ссылке — поэтому пробуем несколько кадров подряд.
+      // state.instant задаётся ссылкой «Ко всем проектам» → прыжок без анимации.
       const id = decodeURIComponent(hash.slice(1))
+      const behavior = state?.instant ? 'instant' : 'smooth'
       let tries = 0
       let raf
       const scroll = () => {
         const el = document.getElementById(id)
         if (el) {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          el.scrollIntoView({ behavior, block: 'start' })
         } else if (tries++ < 30) {
           raf = requestAnimationFrame(scroll)
         }
@@ -29,7 +31,7 @@ function ScrollManager() {
     }
     // Без хеша — мгновенно наверх при смене страницы
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
-  }, [pathname, hash])
+  }, [pathname, hash, state])
   return null
 }
 
