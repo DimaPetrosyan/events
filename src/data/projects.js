@@ -122,7 +122,7 @@ export const projects = [
   },
   {
     slug: 'vne-koncepta',
-    title: 'Вне концепта',
+    title: 'ВНЕ КОНЦЕПТА',
     cover: projectPhoto('vne-koncepta', '069'),
     hero: projectPhoto('vne-koncepta', '046'),
     review: REVIEW_PLACEHOLDER,
