@@ -30,7 +30,11 @@ export default function ProjectPage() {
       {/* Большое фото в начале */}
       <header
         className={styles.hero}
-        style={{ backgroundImage: `url(${project.hero})` }}
+        style={{
+          backgroundImage: `url(${project.hero})`,
+          // Смещаем к верху, чтобы на широких экранах лица не обрезались
+          backgroundPosition: project.heroFocus || 'center 25%',
+        }}
       >
         <div className={styles.heroOverlay} />
         <div className={styles.heroContent}>
