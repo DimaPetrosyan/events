@@ -6,11 +6,29 @@ import Home from './pages/Home.jsx'
 import ProjectPage from './pages/ProjectPage.jsx'
 import NotFound from './pages/NotFound.jsx'
 
-function ScrollToTop() {
+function ScrollManager() {
   const { pathname, hash } = useLocation()
   useEffect(() => {
-    // Мгновенный переход наверх (без плавной прокрутки) при смене страницы
-    if (!hash) window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    if (hash) {
+      // Прокрутка к нужному разделу (#projects, #why, ...).
+      // Элемент может ещё не отрендериться после смены маршрута/при прямом
+      // заходе по ссылке — поэтому пробуем несколько кадров подряд.
+      const id = decodeURIComponent(hash.slice(1))
+      let tries = 0
+      let raf
+      const scroll = () => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        } else if (tries++ < 30) {
+          raf = requestAnimationFrame(scroll)
+        }
+      }
+      raf = requestAnimationFrame(scroll)
+      return () => cancelAnimationFrame(raf)
+    }
+    // Без хеша — мгновенно наверх при смене страницы
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }, [pathname, hash])
   return null
 }
@@ -18,7 +36,7 @@ function ScrollToTop() {
 export default function App() {
   return (
     <>
-      <ScrollToTop />
+      <ScrollManager />
       <Header />
       <main>
         <Routes>

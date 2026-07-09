@@ -24,6 +24,13 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Чтобы при переходе по якорю (#projects, #why…) начало раздела
+   не пряталось под фиксированную шапку */
+section[id],
+[id='top'] {
+  scroll-margin-top: 72px;
+}
+
 body {
   margin: 0;
   font-family: var(--font-sans);
