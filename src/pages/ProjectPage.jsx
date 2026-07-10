@@ -2,7 +2,11 @@ import { useParams, Link } from 'react-router-dom'
 import { useState, useEffect, useCallback } from 'react'
 import Seo from '../components/Seo.jsx'
 import { getProject, projects } from '../data/projects.js'
+import { photoSizes } from '../data/photoSizes.js'
 import styles from './ProjectPage.module.css'
+
+// Ключ 'папка/имя' из URL фото — для поиска его размеров (резервируем место, без CLS)
+const sizeOf = (src) => photoSizes[src.split('/photos/')[1]?.replace('.webp', '')]
 
 // Количество колонок галереи в зависимости от ширины экрана
 function useColumnCount() {
@@ -141,7 +145,10 @@ export default function ProjectPage() {
                   <img
                     src={src}
                     alt={`${project.title} — фото ${i + 1}`}
+                    width={sizeOf(src)?.[0]}
+                    height={sizeOf(src)?.[1]}
                     loading="lazy"
+                    decoding="async"
                   />
                 </button>
               ))}

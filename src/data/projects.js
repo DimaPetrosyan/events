@@ -1,11 +1,11 @@
 // Данные проектов для секции «Наши проекты» и отдельных страниц.
 
-import hero1 from '../assets/hero-1.jpg'
-import hero2 from '../assets/hero-2.jpg'
-import hero3 from '../assets/hero-3.jpg'
-import hero4 from '../assets/hero-4.jpg'
-import contactsPhoto from '../assets/contacts.jpg'
-import aboutPhoto from '../assets/about.jpg'
+import hero1 from '../assets/hero-1.webp'
+import hero2 from '../assets/hero-2.webp'
+import hero3 from '../assets/hero-3.webp'
+import hero4 from '../assets/hero-4.webp'
+import contactsPhoto from '../assets/contacts.webp'
+import aboutPhoto from '../assets/about.webp'
 
 // Слайдер первой секции — реальные фотографии.
 // focus — точка фокуса (background-position): на узких/мобильных экранах
@@ -21,10 +21,10 @@ export const aboutImage = aboutPhoto
 
 export const contactsImage = contactsPhoto
 
-// Путь к реальным фото проектов (лежат в public/photos/<папка>/<номер>.jpg).
+// Путь к реальным фото проектов (лежат в public/photos/<папка>/<номер>.webp).
 // import.meta.env.BASE_URL учитывает базовый путь /events/ на GitHub Pages.
 const projectPhoto = (folder, name) =>
-  `${import.meta.env.BASE_URL}photos/${folder}/${name}.jpg`
+  `${import.meta.env.BASE_URL}photos/${folder}/${name}.webp`
 
 const gallery = (folder, names) => names.map((n) => projectPhoto(folder, n))
 

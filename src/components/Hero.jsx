@@ -7,6 +7,9 @@ const INTERVAL = 4500
 
 export default function Hero() {
   const [index, setIndex] = useState(0)
+  // Грузим фоны слайдов лениво: на старте только первый, остальные — когда
+  // становятся активными. Экономит ~1 МБ трафика при открытии главной.
+  const [loaded, setLoaded] = useState(() => new Set([0]))
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -15,6 +18,10 @@ export default function Hero() {
     return () => clearInterval(id)
   }, [])
 
+  useEffect(() => {
+    setLoaded((prev) => (prev.has(index) ? prev : new Set(prev).add(index)))
+  }, [index])
+
   return (
     <section className={styles.hero} id="top">
       <div className={styles.slides}>
@@ -22,7 +29,10 @@ export default function Hero() {
           <div
             key={slide.src}
             className={`${styles.slide} ${i === index ? styles.active : ''}`}
-            style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.focus }}
+            style={{
+              backgroundImage: loaded.has(i) ? `url(${slide.src})` : undefined,
+              backgroundPosition: slide.focus,
+            }}
             aria-hidden={i !== index}
           />
         ))}
