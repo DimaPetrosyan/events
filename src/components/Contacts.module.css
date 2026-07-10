@@ -83,4 +83,8 @@
   .body {
     padding: 48px 24px 64px;
   }
+  /* Форма контактов на всю ширину */
+  .inner {
+    max-width: none;
+  }
 }
