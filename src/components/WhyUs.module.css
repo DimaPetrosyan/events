@@ -21,6 +21,7 @@
 
 .num {
   font-family: var(--font-serif);
+  font-weight: 400; /* как у заголовка «Почему мы?» */
   font-size: 34px;
   color: var(--color-accent);
   line-height: 1;
@@ -35,7 +36,7 @@
 
 .cardText {
   color: var(--color-muted);
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.6;
 }
 
