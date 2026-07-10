@@ -164,6 +164,8 @@ export const projects = [
     slug: 'ogni-sudby',
     title: 'Огни судьбы',
     cover: projectPhoto('ogni-sudby', '636'),
+    // Пара стоит высоко в кадре — сдвигаем обложку вниз, чтобы головы не резались
+    coverFocus: 'center 25%',
     // Все фото блока — портретные, поэтому превью держим со смещением к верху
     hero: projectPhoto('ogni-sudby', '640'),
     heroFocus: 'center 20%',

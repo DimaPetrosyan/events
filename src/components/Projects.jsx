@@ -17,7 +17,12 @@ export default function Projects() {
               className={styles.card}
             >
               <div className={styles.media}>
-                <img src={project.cover} alt={project.title} loading="lazy" />
+                <img
+                  src={project.cover}
+                  alt={project.title}
+                  loading="lazy"
+                  style={project.coverFocus ? { objectPosition: project.coverFocus } : undefined}
+                />
                 <span className={styles.view}>Смотреть</span>
               </div>
               <div className={styles.meta}>
