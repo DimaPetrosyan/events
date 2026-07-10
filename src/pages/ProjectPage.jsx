@@ -1,11 +1,28 @@
 import { useParams, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 import Seo from '../components/Seo.jsx'
 import { getProject } from '../data/projects.js'
 import styles from './ProjectPage.module.css'
 
+// Количество колонок галереи в зависимости от ширины экрана
+function useColumnCount() {
+  const [cols, setCols] = useState(3)
+  useEffect(() => {
+    const compute = () => {
+      const w = window.innerWidth
+      setCols(w <= 560 ? 1 : w <= 900 ? 2 : 3)
+    }
+    compute()
+    window.addEventListener('resize', compute)
+    return () => window.removeEventListener('resize', compute)
+  }, [])
+  return cols
+}
+
 export default function ProjectPage() {
   const { slug } = useParams()
   const project = getProject(slug)
+  const columnCount = useColumnCount()
 
   if (!project) {
     return (
@@ -58,11 +75,22 @@ export default function ProjectPage() {
         </section>
       )}
 
-      {/* Галерея мероприятия */}
+      {/* Галерея мероприятия — masonry без пустот: раскладываем по колонкам */}
       <section className={styles.gallery}>
-        {project.gallery.map((src, i) => (
-          <div key={i} className={styles.galleryItem}>
-            <img src={src} alt={`${project.title} — фото ${i + 1}`} loading="lazy" />
+        {Array.from({ length: columnCount }, (_, col) => (
+          <div key={col} className={styles.galleryCol}>
+            {project.gallery
+              .map((src, i) => ({ src, i }))
+              .filter(({ i }) => i % columnCount === col)
+              .map(({ src, i }) => (
+                <div key={i} className={styles.galleryItem}>
+                  <img
+                    src={src}
+                    alt={`${project.title} — фото ${i + 1}`}
+                    loading="lazy"
+                  />
+                </div>
+              ))}
           </div>
         ))}
       </section>

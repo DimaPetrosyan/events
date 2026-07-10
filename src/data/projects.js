@@ -168,7 +168,7 @@ export const projects = [
     coverFocus: 'center 25%',
     // Все фото блока — портретные, поэтому превью держим со смещением к верху
     hero: projectPhoto('ogni-sudby', '640'),
-    heroFocus: 'center 20%',
+    heroFocus: 'center 33%',
     review: REVIEW_PLACEHOLDER,
     gallery: gallery('ogni-sudby', [
       '154', '437', '119', '640', '39', '567', '176', '446', '75', '261',

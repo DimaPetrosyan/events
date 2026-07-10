@@ -25,9 +25,6 @@ export default function Header() {
     }
   }, [open])
 
-  // Ссылки-якоря работают только с главной. С других страниц ведём на /#anchor.
-  const linkTo = (href) => (onHome ? href : `/${href}`)
-
   return (
     <header
       className={`${styles.header} ${scrolled ? styles.scrolled : ''} ${
@@ -40,16 +37,30 @@ export default function Header() {
         </Link>
 
         <nav className={`${styles.nav} ${open ? styles.navOpen : ''}`}>
-          {site.nav.map((item) => (
-            <a
-              key={item.href}
-              href={linkTo(item.href)}
-              className={styles.navLink}
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </a>
-          ))}
+          {site.nav.map((item) =>
+            onHome ? (
+              // На главной — обычный якорь (плавная прокрутка внутри страницы)
+              <a
+                key={item.href}
+                href={item.href}
+                className={styles.navLink}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </a>
+            ) : (
+              // С других страниц — клиентский переход к разделу без анимации
+              <Link
+                key={item.href}
+                to={`/${item.href}`}
+                state={{ instant: true }}
+                className={styles.navLink}
+                onClick={() => setOpen(false)}
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </nav>
 
         <button
