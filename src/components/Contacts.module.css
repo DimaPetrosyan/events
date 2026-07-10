@@ -14,7 +14,7 @@
   object-fit: cover;
   /* Десктоп: приподнимаем кадр, чтобы сверху не было лишнего места
      (при этом лицо остаётся в кадре) */
-  object-position: center 20%;
+  object-position: center 40%;
   display: block;
 }
 
@@ -79,17 +79,8 @@
   }
   .image img {
     height: 52vh;
-    /* Планшет — оставляем как есть (кадр выглядит хорошо) */
-    object-position: center 15%;
   }
   .body {
     padding: 48px 24px 64px;
-  }
-}
-
-@media (max-width: 560px) {
-  /* Мобильный: приподнимаем кадр, чтобы сверху не было лишнего места */
-  .image img {
-    object-position: center 30%;
   }
 }

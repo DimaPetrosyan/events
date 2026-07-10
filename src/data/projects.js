@@ -1,9 +1,4 @@
 // Данные проектов для секции «Наши проекты» и отдельных страниц.
-//
-// ВАЖНО: сейчас используются временные изображения-заглушки (picsum.photos)
-// со стабильными seed'ами, чтобы сайт сразу выглядел наполненным.
-// Чтобы подставить реальные фото — положите их в /public/images/
-// и замените ссылки ниже на пути вида '/images/tanec-1.jpg'.
 
 import hero1 from '../assets/hero-1.jpg'
 import hero2 from '../assets/hero-2.jpg'
@@ -11,9 +6,6 @@ import hero3 from '../assets/hero-3.jpg'
 import hero4 from '../assets/hero-4.jpg'
 import contactsPhoto from '../assets/contacts.jpg'
 import aboutPhoto from '../assets/about.jpg'
-
-const ph = (seed, w = 1200, h = 800) =>
-  `https://picsum.photos/seed/${seed}/${w}/${h}`
 
 // Слайдер первой секции — реальные фотографии.
 // focus — точка фокуса (background-position): на узких/мобильных экранах
@@ -26,15 +18,6 @@ export const heroSlides = [
 ]
 
 export const aboutImage = aboutPhoto
-
-// Изображения для карточек секции «Почему мы?»
-export const whyImages = [
-  ph('me-why-1', 800, 1000),
-  ph('me-why-2', 800, 1000),
-  ph('me-why-3', 800, 1000),
-  ph('me-why-4', 800, 1000),
-  ph('me-why-5', 800, 1000),
-]
 
 export const contactsImage = contactsPhoto
 
