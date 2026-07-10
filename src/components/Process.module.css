@@ -5,6 +5,7 @@
 
 /* ==== Горизонтальный таймлайн (десктоп) ==== */
 .timelines {
+  position: relative;
   margin-top: 56px;
   display: flex;
   flex-direction: column;
@@ -89,18 +90,30 @@
     padding: 72px 0;
   }
 
-  .timeline {
-    flex-direction: column;
-    margin-top: 44px;
+  /* Ряды сливаются в один сплошной вертикальный список без пробела */
+  .timelines {
+    gap: 0;
   }
 
-  .timeline::before {
+  /* Одна непрерывная вертикальная линия на весь список */
+  .timelines::before {
+    content: '';
+    position: absolute;
     left: 24px;
-    right: auto;
     top: 0;
     bottom: 0;
     width: 1px;
-    height: auto;
+    background: var(--color-line);
+  }
+
+  .timeline {
+    flex-direction: column;
+    margin-top: 0;
+  }
+
+  /* Линии отдельных рядов убираем — вместо них общая на .timelines */
+  .timeline::before {
+    display: none;
   }
 
   .item {
