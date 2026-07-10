@@ -1,7 +1,7 @@
 import { useParams, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Seo from '../components/Seo.jsx'
-import { getProject } from '../data/projects.js'
+import { getProject, projects } from '../data/projects.js'
 import styles from './ProjectPage.module.css'
 
 // Количество колонок галереи в зависимости от ширины экрана
@@ -24,6 +24,34 @@ export default function ProjectPage() {
   const project = getProject(slug)
   const columnCount = useColumnCount()
 
+  // Лайтбокс: индекс открытого фото или null
+  const [lightbox, setLightbox] = useState(null)
+  const gallery = project?.gallery || []
+  const total = gallery.length
+
+  const close = useCallback(() => setLightbox(null), [])
+  const prev = useCallback(
+    () => setLightbox((i) => (i - 1 + total) % total),
+    [total]
+  )
+  const next = useCallback(() => setLightbox((i) => (i + 1) % total), [total])
+
+  // Клавиатура + блокировка прокрутки, пока открыт лайтбокс
+  useEffect(() => {
+    if (lightbox === null) return
+    document.body.style.overflow = 'hidden'
+    const onKey = (e) => {
+      if (e.key === 'Escape') close()
+      else if (e.key === 'ArrowLeft') prev()
+      else if (e.key === 'ArrowRight') next()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+    }
+  }, [lightbox, close, prev, next])
+
   if (!project) {
     return (
       <section className={styles.missing}>
@@ -34,6 +62,11 @@ export default function ProjectPage() {
       </section>
     )
   }
+
+  // Соседние проекты (по кругу)
+  const idx = projects.findIndex((p) => p.slug === slug)
+  const prevProject = projects[(idx - 1 + projects.length) % projects.length]
+  const nextProject = projects[(idx + 1) % projects.length]
 
   return (
     <article className={styles.page}>
@@ -49,7 +82,6 @@ export default function ProjectPage() {
         className={styles.hero}
         style={{
           backgroundImage: `url(${project.hero})`,
-          // Смещаем к верху, чтобы на широких экранах лица не обрезались
           backgroundPosition: project.heroFocus || 'center 25%',
         }}
       >
@@ -61,6 +93,18 @@ export default function ProjectPage() {
           <h1 className={styles.heroTitle}>{project.title}</h1>
         </div>
       </header>
+
+      {/* Переключение между проектами */}
+      <nav className={styles.projectNav}>
+        <Link to={`/project/${prevProject.slug}`} className={styles.navPrev}>
+          <span className={styles.navArrow}>←</span>
+          <span>{prevProject.title}</span>
+        </Link>
+        <Link to={`/project/${nextProject.slug}`} className={styles.navNext}>
+          <span>{nextProject.title}</span>
+          <span className={styles.navArrow}>→</span>
+        </Link>
+      </nav>
 
       {/* Отзыв */}
       {project.review?.text && (
@@ -75,21 +119,27 @@ export default function ProjectPage() {
         </section>
       )}
 
-      {/* Галерея мероприятия — masonry без пустот: раскладываем по колонкам */}
+      {/* Галерея — masonry на flex-колонках, клик открывает лайтбокс */}
       <section className={styles.gallery}>
         {Array.from({ length: columnCount }, (_, col) => (
           <div key={col} className={styles.galleryCol}>
-            {project.gallery
+            {gallery
               .map((src, i) => ({ src, i }))
               .filter(({ i }) => i % columnCount === col)
               .map(({ src, i }) => (
-                <div key={i} className={styles.galleryItem}>
+                <button
+                  key={i}
+                  type="button"
+                  className={styles.galleryItem}
+                  onClick={() => setLightbox(i)}
+                  aria-label={`Открыть фото ${i + 1}`}
+                >
                   <img
                     src={src}
                     alt={`${project.title} — фото ${i + 1}`}
                     loading="lazy"
                   />
-                </div>
+                </button>
               ))}
           </div>
         ))}
@@ -100,6 +150,44 @@ export default function ProjectPage() {
           ← Ко всем проектам
         </Link>
       </div>
+
+      {/* Лайтбокс-слайдер */}
+      {lightbox !== null && (
+        <div className={styles.lightbox} onClick={close}>
+          <button className={styles.lbClose} onClick={close} aria-label="Закрыть">
+            ×
+          </button>
+          <button
+            className={`${styles.lbArrow} ${styles.lbPrev}`}
+            onClick={(e) => {
+              e.stopPropagation()
+              prev()
+            }}
+            aria-label="Предыдущее фото"
+          >
+            ‹
+          </button>
+          <img
+            className={styles.lbImg}
+            src={gallery[lightbox]}
+            alt={`${project.title} — фото ${lightbox + 1}`}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <button
+            className={`${styles.lbArrow} ${styles.lbNext}`}
+            onClick={(e) => {
+              e.stopPropagation()
+              next()
+            }}
+            aria-label="Следующее фото"
+          >
+            ›
+          </button>
+          <span className={styles.lbCounter}>
+            {lightbox + 1} / {total}
+          </span>
+        </div>
+      )}
     </article>
   )
 }

@@ -41,6 +41,43 @@
   margin-top: 12px;
 }
 
+/* Переключение между проектами */
+.projectNav {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 44px 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.navPrev,
+.navNext {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 13px;
+  color: var(--color-text);
+  transition: color 0.25s ease;
+}
+
+.navNext {
+  text-align: right;
+  margin-left: auto;
+}
+
+.navPrev:hover,
+.navNext:hover {
+  color: var(--color-accent);
+}
+
+.navArrow {
+  font-size: 18px;
+}
+
 /* Отзыв */
 .review {
   padding: 100px 0;
@@ -90,12 +127,23 @@
 
 .galleryItem {
   overflow: hidden;
+  /* сброс стилей кнопки */
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
 }
 
 .galleryItem img {
   width: 100%;
   display: block;
   transition: transform 0.6s ease;
+}
+
+.galleryItem:hover img {
+  transform: scale(1.04);
 }
 
 .galleryItem:hover img {
@@ -133,8 +181,107 @@
   padding: 120px 24px;
 }
 
+/* Лайтбокс-слайдер */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(18, 18, 20, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 72px;
+  animation: lbFade 0.2s ease;
+}
+
+@keyframes lbFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.lbImg {
+  max-width: 90vw;
+  max-height: 86vh;
+  object-fit: contain;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+.lbClose {
+  position: absolute;
+  top: 22px;
+  right: 28px;
+  width: 44px;
+  height: 44px;
+  font-size: 34px;
+  line-height: 1;
+  color: #fff;
+  background: none;
+  border: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease;
+}
+
+.lbArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 56px;
+  height: 56px;
+  font-size: 44px;
+  line-height: 1;
+  color: #fff;
+  background: none;
+  border: none;
+  opacity: 0.8;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.lbPrev {
+  left: 10px;
+}
+.lbNext {
+  right: 10px;
+}
+
+.lbClose:hover,
+.lbArrow:hover {
+  opacity: 1;
+}
+
+.lbCounter {
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.2em;
+  font-size: 13px;
+}
+
 @media (max-width: 560px) {
   .review {
     padding: 70px 0;
+  }
+  .projectNav {
+    font-size: 11px;
+  }
+  .lightbox {
+    padding: 20px 8px;
+  }
+  .lbArrow {
+    font-size: 34px;
+    width: 40px;
+    height: 40px;
+  }
+  .lbPrev {
+    left: 0;
+  }
+  .lbNext {
+    right: 0;
   }
 }
