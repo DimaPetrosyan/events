@@ -47,9 +47,10 @@
   background: var(--color-cream);
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
-  font-family: var(--font-serif);
-  font-weight: 400; /* как у заголовка «Почему мы?» */
-  font-size: 16px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.04em;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -20,9 +20,10 @@
 }
 
 .num {
-  font-family: var(--font-serif);
-  font-weight: 400; /* как у заголовка «Почему мы?» */
-  font-size: 34px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 30px;
+  letter-spacing: 0.06em;
   color: var(--color-accent);
   line-height: 1;
   margin-bottom: 22px;
