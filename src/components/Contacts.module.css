@@ -12,8 +12,9 @@
   width: 100%;
   height: 640px;
   object-fit: cover;
-  /* Держим лицо в кадре при landscape-кадрировании на узких экранах */
-  object-position: center 15%;
+  /* Десктоп: приподнимаем кадр, чтобы сверху не было лишнего места
+     (при этом лицо остаётся в кадре) */
+  object-position: center 20%;
   display: block;
 }
 
@@ -78,8 +79,17 @@
   }
   .image img {
     height: 52vh;
+    /* Планшет — оставляем как есть (кадр выглядит хорошо) */
+    object-position: center 15%;
   }
   .body {
     padding: 48px 24px 64px;
+  }
+}
+
+@media (max-width: 560px) {
+  /* Мобильный: приподнимаем кадр, чтобы сверху не было лишнего места */
+  .image img {
+    object-position: center 30%;
   }
 }
