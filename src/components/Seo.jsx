@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet-async'
 
-const SITE_URL = 'https://me-event.ru'
+const SITE_URL = 'https://dimapetrosyan.github.io/events'
 
 export default function Seo({
   title,
   description,
   path = '/',
-  image = `${SITE_URL}/og-image.jpg`,
+  image = `${SITE_URL}/og-image.png`,
 }) {
   const fullTitle = title
-    ? `${title} — ME Event Agency`
-    : 'ME Event Agency — организация мероприятий под ключ'
+    ? `${title} — Студия МЕ`
+    : 'Студия МЕ — организация свадеб и праздников под ключ'
   const url = `${SITE_URL}${path}`
 
   return (

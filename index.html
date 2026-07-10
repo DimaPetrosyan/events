@@ -6,25 +6,51 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <!--
-      Базовые SEO-теги (фолбэк для краулеров без JS).
-      Теги title / description / canonical / og:* / twitter:* на каждой
-      странице формирует react-helmet-async (см. src/components/Seo.jsx),
-      поэтому здесь их не дублируем, чтобы не плодить конфликтующие теги.
+      Базовые SEO / OG-теги в статике — их читают краулеры превью ссылок
+      (Telegram, WhatsApp, VK и т.п.), которые НЕ выполняют JavaScript.
+      Per-page-теги дополнительно формирует react-helmet-async (см. Seo.jsx)
+      для поисковиков, исполняющих JS.
     -->
-    <title>ME Event Agency — организация мероприятий под ключ</title>
-    <meta name="keywords" content="event агентство, организация мероприятий, свадьба под ключ, организация праздников, ME Event" />
-    <meta name="author" content="ME Event Agency" />
+    <title>Студия МЕ — организация свадеб и праздников под ключ</title>
+    <meta
+      name="description"
+      content="Event-агентство полного цикла. Организуем свадьбы, праздники и мероприятия под ключ — от идеи и концепции до реализации. Осуществляем мечты со вкусом."
+    />
+    <meta name="keywords" content="event агентство, организация мероприятий, свадьба под ключ, организация праздников, ME Event, Студия МЕ" />
+    <meta name="author" content="Студия МЕ" />
     <meta name="robots" content="index, follow" />
-    <meta property="og:site_name" content="ME Event Agency" />
+
+    <!-- Open Graph (превью ссылок) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Студия МЕ" />
+    <meta property="og:title" content="Студия МЕ — организация свадеб и праздников под ключ" />
+    <meta
+      property="og:description"
+      content="Event-агентство полного цикла. Организуем свадьбы, праздники и мероприятия под ключ — от идеи и концепции до реализации. Осуществляем мечты со вкусом."
+    />
+    <meta property="og:image" content="https://dimapetrosyan.github.io/events/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content="https://dimapetrosyan.github.io/events/" />
     <meta property="og:locale" content="ru_RU" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Студия МЕ — организация свадеб и праздников под ключ" />
+    <meta
+      name="twitter:description"
+      content="Event-агентство полного цикла. Свадьбы, праздники и мероприятия под ключ. Осуществляем мечты со вкусом."
+    />
+    <meta name="twitter:image" content="https://dimapetrosyan.github.io/events/og-image.png" />
 
     <!-- Structured data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "Organization",
-        "name": "ME Event Agency",
-        "url": "https://me-event.ru/",
+        "name": "Студия МЕ",
+        "url": "https://dimapetrosyan.github.io/events/",
+        "logo": "https://dimapetrosyan.github.io/events/og-image.png",
         "email": "me-event@yandex.ru",
         "telephone": "+7 (903) 173-76-65",
         "description": "Event-агентство полного цикла. Организация свадеб и праздников от идеи до реализации.",
