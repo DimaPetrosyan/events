@@ -20,8 +20,9 @@ export const site = {
     emailHref: 'mailto:me-event@yandex.ru',
     socials: [
       { label: 'Telegram', value: '@dianavabien', href: 'https://t.me/dianavabien' },
-      { label: 'Instagram', value: '@mechta.event', href: 'https://instagram.com/mechta.event' },
-      { label: 'VK', value: '@mechta.event', href: 'https://vk.com/mechta.event' },
+      // Без ссылки — просто текст (Instagram-хэндл)
+      { label: 'Наши соцсети', value: '@me.event.you' },
+      { label: 'VK', value: 'me.event', href: 'https://vk.ru/me.event' },
     ],
   },
 }

@@ -9,11 +9,13 @@ export default function Footer() {
       <div className={styles.inner}>
         <img className={styles.brand} src={logo} alt={site.brand} />
         <div className={styles.socials}>
-          {site.contacts.socials.map((s) => (
-            <a key={s.label} href={s.href} target="_blank" rel="noreferrer">
-              {s.label}
-            </a>
-          ))}
+          {site.contacts.socials
+            .filter((s) => s.href)
+            .map((s) => (
+              <a key={s.label} href={s.href} target="_blank" rel="noreferrer">
+                {s.label}
+              </a>
+            ))}
         </div>
         <span className={styles.copy}>
           © {year} {site.brand}. Все права защищены.
