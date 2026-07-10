@@ -3,7 +3,7 @@ import { heroSlides } from '../data/projects.js'
 import { site } from '../data/site.js'
 import styles from './Hero.module.css'
 
-const INTERVAL = 4500
+const INTERVAL = 3500
 
 export default function Hero() {
   const [index, setIndex] = useState(0)

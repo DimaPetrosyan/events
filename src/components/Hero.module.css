@@ -17,13 +17,26 @@
   background-size: cover;
   background-position: center;
   opacity: 0;
-  transform: scale(1.06);
-  transition: opacity 1.4s ease, transform 6s ease;
+  /* Состояние покоя = конец зума (scale 1). Тогда после завершения анимации
+     слайд не «прыгает» обратно при деактивации. Зум стартует с 1.06 в @keyframes. */
+  transform: scale(1);
+  transition: opacity 1.4s ease;
 }
 
+/* Зум-анимация через @keyframes (а не transition) — чтобы она запускалась
+   и на самом первом слайде, который активен уже при загрузке. */
 .active {
   opacity: 1;
-  transform: scale(1);
+  animation: kenburns 4s ease forwards;
+}
+
+@keyframes kenburns {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
 }
 
 .overlay {
