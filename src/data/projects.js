@@ -89,7 +89,7 @@ export const projects = [
   },
   {
     slug: 'alya-rus',
-    title: 'Аля рус',
+    title: 'Русская сказка',
     cover: projectPhoto('alya-rus', '415'),
     hero: projectPhoto('alya-rus', '372'),
     review: REVIEW_PLACEHOLDER,
@@ -111,18 +111,33 @@ export const projects = [
   },
   {
     slug: 'lesnaya-skazka',
-    title: 'Лесная сказка',
-    cover: projectPhoto('lesnaya-skazka', '135'),
+    title: 'Магия в лесу',
+    cover: projectPhoto('lesnaya-skazka', 'photo_16_2026-07-10_11-32-32'),
     hero: projectPhoto('lesnaya-skazka', '928'),
     review: REVIEW_PLACEHOLDER,
     gallery: gallery('lesnaya-skazka', [
+      // новые фото (Telegram) — идут раньше существующих
+      'photo_2_2026-07-10_11-32-32', 'photo_5_2026-07-10_11-32-32',
+      'photo_14_2026-07-10_11-32-32', 'photo_9_2026-07-10_11-32-32',
+      'photo_24_2026-07-10_11-32-32', 'photo_1_2026-07-10_11-32-32',
+      'photo_18_2026-07-10_11-32-32', 'photo_25_2026-07-10_11-32-32',
+      'photo_11_2026-07-10_11-32-32', 'photo_7_2026-07-10_11-32-32',
+      'photo_20_2026-07-10_11-32-32', 'photo_3_2026-07-10_11-32-32',
+      'photo_16_2026-07-10_11-32-32', 'photo_23_2026-07-10_11-32-32',
+      'photo_6_2026-07-10_11-32-32', 'photo_12_2026-07-10_11-32-32',
+      'photo_26_2026-07-10_11-32-32', 'photo_8_2026-07-10_11-32-32',
+      'photo_19_2026-07-10_11-32-32', 'photo_4_2026-07-10_11-32-32',
+      'photo_15_2026-07-10_11-32-32', 'photo_22_2026-07-10_11-32-32',
+      'photo_10_2026-07-10_11-32-32', 'photo_21_2026-07-10_11-32-32',
+      'photo_13_2026-07-10_11-32-32', 'photo_17_2026-07-10_11-32-32',
+      // существующие
       '135', '1010', '42', '182', '928', '3', '51', '745', '875', '932',
       '946', '96', '995', '1002',
     ]),
   },
   {
     slug: 'vne-koncepta',
-    title: 'Вне концепта',
+    title: 'Корпоратив «Вне концепта»',
     cover: projectPhoto('vne-koncepta', '069'),
     hero: projectPhoto('vne-koncepta', '046'),
     review: REVIEW_PLACEHOLDER,
@@ -133,7 +148,7 @@ export const projects = [
   },
   {
     slug: 'nasha-svadba',
-    title: 'Наша свадьба',
+    title: 'Свадебная прогулка',
     cover: projectPhoto('nasha-svadba', '4F9A3455-1'),
     hero: projectPhoto('nasha-svadba', '4F9A4025-1'),
     review: REVIEW_PLACEHOLDER,
@@ -143,6 +158,19 @@ export const projects = [
       '4F9A3985', '4F9A3803-1', '4F9A3968-1', '4F9A3576-1', '4F9A4054-1',
       '4F9A3909-1', '4F9A3532-1', '4F9A4145-1', '4F9A3963-1', '4F9A3989-1',
       '4F9A4107-1',
+    ]),
+  },
+  {
+    slug: 'ogni-sudby',
+    title: 'Огни судьбы',
+    cover: projectPhoto('ogni-sudby', '636'),
+    // Все фото блока — портретные, поэтому превью держим со смещением к верху
+    hero: projectPhoto('ogni-sudby', '640'),
+    heroFocus: 'center 20%',
+    review: REVIEW_PLACEHOLDER,
+    gallery: gallery('ogni-sudby', [
+      '154', '437', '119', '640', '39', '567', '176', '446', '75', '261',
+      '466', '194', '765', '67', '429', '718', '630', '711', '408-2',
     ]),
   },
 ]

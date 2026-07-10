@@ -16,8 +16,8 @@ export const site = {
   contacts: {
     phone: '+7 (903) 173-76-65',
     phoneHref: 'tel:+79031737665',
-    email: 'mechta.event@gmail.com',
-    emailHref: 'mailto:mechta.event@gmail.com',
+    email: 'me-event@yandex.ru',
+    emailHref: 'mailto:me-event@yandex.ru',
     socials: [
       { label: 'Telegram', value: '@dianavabien', href: 'https://t.me/dianavabien' },
       { label: 'Instagram', value: '@mechta.event', href: 'https://instagram.com/mechta.event' },
