@@ -14,7 +14,7 @@ export const heroSlides = [
   { src: hero1, focus: '50% 50%' },
   { src: hero2, focus: '50% 45%' },
   { src: hero3, focus: '30% 50%' },
-  { src: hero4, focus: '45% 50%' },
+  { src: hero4, focus: '40% 62%' },
 ]
 
 export const aboutImage = aboutPhoto
