@@ -56,6 +56,8 @@ export const projects = [
     title: 'Зимняя сказка',
     cover: projectPhoto('zima', '48'),
     hero: projectPhoto('zima', '1099'),
+    // Головы пары высоко в кадре — смещаем к верху, чтобы не срезались
+    heroFocus: 'center 8%',
     review: REVIEW_PLACEHOLDER,
     gallery: gallery('zima', [
       '1224', '3', '0056', '48', '1769', '12', '0530', '0068', '2206',

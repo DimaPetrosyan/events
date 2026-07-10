@@ -57,6 +57,7 @@
   display: inline-flex;
   align-items: center;
   gap: 12px;
+  line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.18em;
   font-size: 13px;
@@ -75,7 +76,10 @@
 }
 
 .navArrow {
-  font-size: 18px;
+  font-size: 17px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
 }
 
 /* Отзыв */

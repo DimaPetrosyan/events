@@ -63,10 +63,10 @@ export default function ProjectPage() {
     )
   }
 
-  // Соседние проекты (по кругу)
+  // Соседние проекты (без цикла: у первого нет «назад», у последнего — «вперёд»)
   const idx = projects.findIndex((p) => p.slug === slug)
-  const prevProject = projects[(idx - 1 + projects.length) % projects.length]
-  const nextProject = projects[(idx + 1) % projects.length]
+  const prevProject = idx > 0 ? projects[idx - 1] : null
+  const nextProject = idx < projects.length - 1 ? projects[idx + 1] : null
 
   return (
     <article className={styles.page}>
@@ -96,14 +96,18 @@ export default function ProjectPage() {
 
       {/* Переключение между проектами */}
       <nav className={styles.projectNav}>
-        <Link to={`/project/${prevProject.slug}`} className={styles.navPrev}>
-          <span className={styles.navArrow}>←</span>
-          <span>{prevProject.title}</span>
-        </Link>
-        <Link to={`/project/${nextProject.slug}`} className={styles.navNext}>
-          <span>{nextProject.title}</span>
-          <span className={styles.navArrow}>→</span>
-        </Link>
+        {prevProject && (
+          <Link to={`/project/${prevProject.slug}`} className={styles.navPrev}>
+            <span className={styles.navArrow}>←</span>
+            <span>{prevProject.title}</span>
+          </Link>
+        )}
+        {nextProject && (
+          <Link to={`/project/${nextProject.slug}`} className={styles.navNext}>
+            <span>{nextProject.title}</span>
+            <span className={styles.navArrow}>→</span>
+          </Link>
+        )}
       </nav>
 
       {/* Отзыв */}
