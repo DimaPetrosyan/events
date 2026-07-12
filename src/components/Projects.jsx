@@ -1,8 +1,29 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { projects } from '../data/projects.js'
 import styles from './Projects.module.css'
 
 export default function Projects() {
+  // Предзагружаем hero-картинки проектов заранее, пока пользователь на главной:
+  // при клике на карточку страница проекта покажет свой hero сразу из кэша.
+  // Низкий приоритет + requestIdleCallback — чтобы не отнимать канал у самой
+  // главной (слайдер, обложки грузятся первыми).
+  useEffect(() => {
+    const preload = () => {
+      projects.forEach((p) => {
+        const img = new Image()
+        img.fetchPriority = 'low'
+        img.src = p.hero
+      })
+    }
+    if ('requestIdleCallback' in window) {
+      const id = window.requestIdleCallback(preload, { timeout: 3000 })
+      return () => window.cancelIdleCallback?.(id)
+    }
+    const t = setTimeout(preload, 1500)
+    return () => clearTimeout(t)
+  }, [])
+
   return (
     <section className={styles.projects} id="projects">
       <div className="container">
