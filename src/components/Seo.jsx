@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async'
+import { Head } from 'vite-react-ssg'
 
 const SITE_URL = 'https://dimapetrosyan.github.io/events'
 
@@ -7,6 +7,11 @@ export default function Seo({
   description,
   path = '/',
   image = `${SITE_URL}/og-image.png`,
+  // URL главного изображения страницы (hero). Если задан — предзагружаем его
+  // с высоким приоритетом, чтобы фон-картинка начинала грузиться сразу, а не
+  // после отрисовки элемента. Фоновые картинки не бывают lazy, но и не
+  // приоритетны — preload делает их «нелениво» загружаемыми.
+  preloadImage,
 }) {
   const fullTitle = title
     ? `${title} — Студия МЕ`
@@ -14,10 +19,14 @@ export default function Seo({
   const url = `${SITE_URL}${path}`
 
   return (
-    <Helmet>
+    <Head>
       <title>{fullTitle}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
+
+      {preloadImage && (
+        <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />
+      )}
 
       <meta property="og:type" content="website" />
       <meta property="og:title" content={fullTitle} />
@@ -29,6 +38,6 @@ export default function Seo({
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-    </Helmet>
+    </Head>
   )
 }
