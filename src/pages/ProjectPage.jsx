@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Seo from '../components/Seo.jsx'
 import { getProject, projects } from '../data/projects.js'
 import { photoSizes } from '../data/photoSizes.js'
@@ -39,6 +39,26 @@ export default function ProjectPage() {
     [total]
   )
   const next = useCallback(() => setLightbox((i) => (i + 1) % total), [total])
+
+  // Свайп по фото на мобильных: запоминаем точку касания и по её сдвигу
+  // листаем. Влево — следующее фото, вправо — предыдущее.
+  const touchStart = useRef(null)
+  const onTouchStart = (e) => {
+    const t = e.changedTouches[0]
+    touchStart.current = { x: t.clientX, y: t.clientY }
+  }
+  const onTouchEnd = (e) => {
+    if (!touchStart.current) return
+    const t = e.changedTouches[0]
+    const dx = t.clientX - touchStart.current.x
+    const dy = t.clientY - touchStart.current.y
+    touchStart.current = null
+    // Реагируем только на заметный горизонтальный жест (не на вертикальный/тап)
+    if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) next()
+      else prev()
+    }
+  }
 
   // Клавиатура + блокировка прокрутки, пока открыт лайтбокс
   useEffect(() => {
@@ -165,7 +185,12 @@ export default function ProjectPage() {
 
       {/* Лайтбокс-слайдер */}
       {lightbox !== null && (
-        <div className={styles.lightbox} onClick={close}>
+        <div
+          className={styles.lightbox}
+          onClick={close}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
           <button className={styles.lbClose} onClick={close} aria-label="Закрыть">
             ×
           </button>
