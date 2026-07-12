@@ -1,10 +1,7 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import Header from './components/Header.jsx'
 import Footer from './components/Footer.jsx'
-import Home from './pages/Home.jsx'
-import ProjectPage from './pages/ProjectPage.jsx'
-import NotFound from './pages/NotFound.jsx'
 
 function ScrollManager() {
   const { pathname, hash, state } = useLocation()
@@ -35,17 +32,14 @@ function ScrollManager() {
   return null
 }
 
-export default function App() {
+// Общий каркас страниц: маршрут-контент подставляется через <Outlet />.
+export default function Layout() {
   return (
     <>
       <ScrollManager />
       <Header />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/project/:slug" element={<ProjectPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <Outlet />
       </main>
       <Footer />
     </>

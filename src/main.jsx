@@ -1,16 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import { HelmetProvider } from 'react-helmet-async'
-import App from './App.jsx'
+import { ViteReactSSG } from 'vite-react-ssg'
+import { routes } from './routes.jsx'
 import './styles/global.css'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <HelmetProvider>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
-        <App />
-      </BrowserRouter>
-    </HelmetProvider>
-  </React.StrictMode>
-)
+// SSG-точка входа: vite-react-ssg сам оборачивает дерево в HelmetProvider
+// и RouterProvider, поэтому здесь только маршруты и базовый путь.
+export const createRoot = ViteReactSSG({
+  routes,
+  basename: import.meta.env.BASE_URL,
+})

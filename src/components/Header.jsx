@@ -33,7 +33,11 @@ export default function Header() {
     >
       <div className={styles.inner}>
         <Link to="/" className={styles.logo} onClick={() => setOpen(false)} aria-label={site.brand}>
-          <img src={logo} alt={site.brand} />
+          {/* Явные размеры (соотношение сторон логотипа 546×240 при высоте 58px)
+              резервируют корректный бокс ещё до применения CSS — иначе при
+              перезагрузке SSG-страницы SVG на миг показывается в натуральную
+              величину и «прыгает», ужимаясь до нужного размера. */}
+          <img src={logo} alt={site.brand} width="132" height="58" />
         </Link>
 
         <nav className={`${styles.nav} ${open ? styles.navOpen : ''}`}>

@@ -7,7 +7,9 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <img className={styles.brand} src={logo} alt={site.brand} />
+        {/* Явные размеры (соотношение сторон логотипа при высоте 64px) —
+            резервируют бокс до применения CSS, чтобы SVG не «прыгал». */}
+        <img className={styles.brand} src={logo} alt={site.brand} width="146" height="64" />
         <div className={styles.socials}>
           {site.contacts.socials
             .filter((s) => s.href)

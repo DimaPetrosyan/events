@@ -79,6 +79,7 @@ export default function ProjectPage() {
         description={`${project.title}${project.subtitle ? ` — ${project.subtitle}` : ''} от ME Event Agency.`}
         path={`/project/${project.slug}`}
         image={project.hero}
+        preloadImage={project.hero}
       />
 
       {/* Большое фото в начале */}
