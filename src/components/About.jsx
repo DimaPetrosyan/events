@@ -20,6 +20,9 @@ export default function About() {
               {text}
             </p>
           ))}
+          <a href="#contacts" className={styles.cta}>
+            Обсудить ваш проект
+          </a>
         </div>
       </div>
     </section>

@@ -42,6 +42,23 @@
   margin-bottom: 18px;
 }
 
+.cta {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 14px 34px;
+  border: 1px solid var(--color-accent);
+  color: var(--color-accent-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 13px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.cta:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
 @media (max-width: 860px) {
   .about {
     grid-template-columns: 1fr;

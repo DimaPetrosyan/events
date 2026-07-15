@@ -3,11 +3,11 @@
 
 export const site = {
   brand: 'ME Event',
-  tagline: 'Каждая история заслуживает своего события',
+  tagline: 'Каждая история заслуживает своего события.',
 
   nav: [
     { label: 'О нас', href: '#about' },
-    { label: 'Подход', href: '#why' },
+    { label: 'Наш подход', href: '#why' },
     { label: 'Как мы работаем', href: '#process' },
     { label: 'Наши проекты', href: '#projects' },
     { label: 'Контакты', href: '#contacts' },
@@ -38,9 +38,9 @@ export const about = {
   ],
 }
 
-// Секция «Подход» — текстовые карточки без фотографий и без номеров
+// Секция «Наш подход» — текстовые карточки без фотографий и без номеров
 export const whyUs = {
-  title: 'Подход',
+  title: 'Наш подход',
   cards: [
     {
       title: 'История',

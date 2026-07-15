@@ -9,7 +9,6 @@
   margin-top: 56px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
 }
 
 .timeline {
@@ -80,7 +79,7 @@
 }
 
 .stepText {
-  color: var(--color-muted);
+  color: var(--color-text);
   font-size: 16px;
   line-height: 1.6;
 }

@@ -37,7 +37,7 @@ export default function Header() {
               резервируют корректный бокс ещё до применения CSS — иначе при
               перезагрузке SSG-страницы SVG на миг показывается в натуральную
               величину и «прыгает», ужимаясь до нужного размера. */}
-          <img src={logo} alt={site.brand} width="132" height="58" />
+          <img src={logo} alt={site.brand} width="81" height="58" />
         </Link>
 
         <nav className={`${styles.nav} ${open ? styles.navOpen : ''}`}>
