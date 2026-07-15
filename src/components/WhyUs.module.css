@@ -3,11 +3,11 @@
   background: var(--color-bg);
 }
 
-/* 5 текстовых карточек в один ряд */
+/* 3 текстовые карточки в один ряд */
 .grid {
   margin-top: 56px;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -17,16 +17,6 @@
   padding: 32px 26px 34px;
   display: flex;
   flex-direction: column;
-}
-
-.num {
-  font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: 30px;
-  letter-spacing: 0.06em;
-  color: var(--color-accent);
-  line-height: 1;
-  margin-bottom: 22px;
 }
 
 .cardTitle {

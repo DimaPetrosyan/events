@@ -41,10 +41,10 @@ export default function Hero() {
       </div>
 
       <div className={styles.content}>
-        <p className={styles.kicker}>Event Agency</p>
+        <p className={styles.kicker}>События со смыслом</p>
         <h1 className={styles.title}>{site.tagline}</h1>
-        <a href="#projects" className={styles.cta}>
-          Смотреть проекты
+        <a href="#contacts" className={styles.cta}>
+          Обсудить проект
         </a>
       </div>
 

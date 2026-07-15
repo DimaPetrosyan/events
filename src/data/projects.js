@@ -14,7 +14,7 @@ export const heroSlides = [
   { src: hero1, focus: '50% 50%' },
   { src: hero2, focus: '50% 45%' },
   { src: hero3, focus: '30% 50%' },
-  { src: hero4, focus: '40% 62%' },
+  { src: hero4, focus: '50% 42%' },
 ]
 
 export const aboutImage = aboutPhoto
@@ -28,20 +28,16 @@ const projectPhoto = (folder, name) =>
 
 const gallery = (folder, names) => names.map((n) => projectPhoto(folder, n))
 
-// TODO: отзывы — заглушка, заменить реальными текстами клиентов
-const REVIEW_PLACEHOLDER = { author: '', text: 'Здесь будет отзыв о мероприятии.' }
-
 // Фото каждого блока — в хаотичном порядке (портретные и горизонтальные вперемешку).
 // cover — обложка карточки, hero — большое горизонтальное фото-превью страницы.
 export const projects = [
   {
     slug: 'zimnyaya-skazka',
-    title: 'Зимняя сказка',
+    title: 'Хрустальное сердце',
     cover: projectPhoto('zima', '48'),
     hero: projectPhoto('zima', '1099'),
     // Головы пары высоко в кадре — смещаем к верху, чтобы не срезались
     heroFocus: 'center 8%',
-    review: REVIEW_PLACEHOLDER,
     gallery: gallery('zima', [
       '1224', '3', '0056', '48', '1769', '12', '0530', '0068', '2206',
       '26', '0811', '14', '0061', '35', '1099', '0786', '47', '4',
@@ -51,10 +47,10 @@ export const projects = [
   },
   {
     slug: 'evangelina',
-    title: 'Евангелине 10 лет',
+    title: 'Evas Tour',
     cover: projectPhoto('evangelina', '00098'),
     hero: projectPhoto('evangelina', '00019'),
-    review: REVIEW_PLACEHOLDER,
+    description: 'Любовь Евы к Taylor Swift вдохновила концепцию этого дня рождения. В эстетике концертного тура мы создали праздник, где каждая деталь работала на одну идею — подарить имениннице ощущение, что этот день полностью принадлежит ей.',
     gallery: gallery('evangelina', [
       '00166', '00014', '00002', '00048', '00079', '00054', '00031',
       '00062', '00195', '00091', '00047', '00103', '00003', '00136',
@@ -63,10 +59,10 @@ export const projects = [
   },
   {
     slug: 'vypusknoy',
-    title: 'Выпускной Школы «Президент»',
+    title: 'Новая глава',
     cover: projectPhoto('vypusknoy', '006'),
     hero: projectPhoto('vypusknoy', '057'),
-    review: REVIEW_PLACEHOLDER,
+    description: 'Этот выпускной начался со знакомства с каждым выпускником и его историей. Документальный фильм, общий стол, объединивший весь класс, и современная сценография сделали главными героями вечера тех, ради кого он был создан.',
     gallery: gallery('vypusknoy', [
       '484', '016', '057', '083', '098', '521', '006', '062', '023',
       '067', '084',
@@ -77,7 +73,7 @@ export const projects = [
     title: 'Русская сказка',
     cover: projectPhoto('alya-rus', '415'),
     hero: projectPhoto('alya-rus', '372'),
-    review: REVIEW_PLACEHOLDER,
+    description: 'Русские традиции, вкусы детства и народные мотивы легли в основу этой свадьбы. Колосья, яблоки, баранки, славянские орнаменты и фуд-декор создали атмосферу настоящего русского гостеприимства.',
     gallery: gallery('alya-rus', [
       '372', '326', '1131', '339', '415', '109', '1', '1099', '416',
       '1143', '367', '375', '1201', '409', '3', '446', '447', '451', '650',
@@ -88,7 +84,6 @@ export const projects = [
     title: 'Новогодний корпоратив ЛКП',
     cover: projectPhoto('novyy-god-lkp', '1481'),
     hero: projectPhoto('novyy-god-lkp', '1386'),
-    review: REVIEW_PLACEHOLDER,
     gallery: gallery('novyy-god-lkp', [
       '1386', '108', '1243', '2', '1454', '383', '430', '403', '1311',
       '827', '1481', '417', '1', '763', '1398',
@@ -99,7 +94,7 @@ export const projects = [
     title: 'Магия в лесу',
     cover: projectPhoto('lesnaya-skazka', 'photo_16_2026-07-10_11-32-32'),
     hero: projectPhoto('lesnaya-skazka', '928'),
-    review: REVIEW_PLACEHOLDER,
+    description: 'Любовь расцветает там, где пожелает. Эта идея стала основой свадьбы среди осеннего леса. Живая зелень, красные розы, витражи и первый снег создали атмосферу, где реальность незаметно переплелась со сказкой.',
     gallery: gallery('lesnaya-skazka', [
       // новые фото (Telegram) — идут раньше существующих
       'photo_2_2026-07-10_11-32-32', 'photo_5_2026-07-10_11-32-32',
@@ -125,7 +120,7 @@ export const projects = [
     title: 'Корпоратив «Вне концепта»',
     cover: projectPhoto('vne-koncepta', '069'),
     hero: projectPhoto('vne-koncepta', '046'),
-    review: REVIEW_PLACEHOLDER,
+    description: 'Идея этого вечера — отказаться от всего привычного. Спорт-шик вместо дресс-кода, никаких официальных речей и формальностей — только люди, танцы, объятия и удовольствие от праздника.',
     gallery: gallery('vne-koncepta', [
       '046', '001', '073', '005', '047', '007', '069', '023', '065',
       '076', '169', '174', '195', '204', '209', '243', '248', '244',
@@ -133,10 +128,10 @@ export const projects = [
   },
   {
     slug: 'nasha-svadba',
-    title: 'Свадебная прогулка',
+    title: 'Он, она, дождь',
     cover: projectPhoto('nasha-svadba', '4F9A3455-1'),
     hero: projectPhoto('nasha-svadba', '4F9A4025-1'),
-    review: REVIEW_PLACEHOLDER,
+    description: 'Дождь не изменил планы — он стал частью этой свадебной прогулки. Город, уличная эстетика и искренние эмоции сделали её особенной.',
     gallery: gallery('nasha-svadba', [
       '4F9A4032', '4F9A3292', '4F9A3865', '4F9A3455-1', '4F9A3546-1',
       '4F9A3979-1', '4F9A3615', '4F9A4025-1', '4F9A3930-1', '4F9A3494-2',
@@ -154,7 +149,7 @@ export const projects = [
     // Все фото блока — портретные, поэтому превью держим со смещением к верху
     hero: projectPhoto('ogni-sudby', '640'),
     heroFocus: 'center 33%',
-    review: REVIEW_PLACEHOLDER,
+    description: 'Живой огонь стал основой концепции этой февральской свадьбы. Более двухсот свечей среди заснеженного леса создали атмосферу, где тепло объединяло гостей так же естественно, как когда-то людей собирал общий очаг.',
     gallery: gallery('ogni-sudby', [
       '154', '437', '119', '640', '39', '567', '176', '446', '75', '261',
       '466', '194', '765', '67', '429', '718', '630', '711', '408-2',

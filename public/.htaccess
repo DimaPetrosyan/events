@@ -1,0 +1,21 @@
+# SPA/статик-фолбэк для React Router на Apache (shared-хостинг).
+# Если запрошенного файла/папки нет — отдаём index.html,
+# дальше маршрут разбирает React Router на клиенте.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# Кэширование статики (ассеты с хешем в имени — можно кэшировать надолго)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 6 months"
+  ExpiresByType image/svg+xml "access plus 6 months"
+  ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

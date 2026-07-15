@@ -6,6 +6,7 @@ dist/
 dist-ssr/
 .vite-react-ssg-temp/
 .local-preview/
+me-event-site-dist.zip
 
 # logs
 npm-debug.log*

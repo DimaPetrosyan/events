@@ -10,8 +10,7 @@ export default function WhyUs() {
 
         <div className={styles.grid}>
           {whyUs.cards.map((card) => (
-            <article key={card.num} className={styles.card}>
-              <span className={styles.num}>{card.num}</span>
+            <article key={card.title} className={styles.card}>
               <h3 className={styles.cardTitle}>{card.title}</h3>
               <p className={styles.cardText}>{card.text}</p>
             </article>

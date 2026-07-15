@@ -135,15 +135,11 @@ export default function ProjectPage() {
         )}
       </nav>
 
-      {/* Отзыв */}
-      {project.review?.text && (
-        <section className={styles.review}>
+      {/* Описание проекта */}
+      {project.description && (
+        <section className={styles.description}>
           <div className="container">
-            <p className={styles.quoteMark}>“</p>
-            <blockquote className={styles.quote}>{project.review.text}</blockquote>
-            {project.review.author && (
-              <p className={styles.author}>— {project.review.author}</p>
-            )}
+            <p className={styles.descriptionText}>{project.description}</p>
           </div>
         </section>
       )}

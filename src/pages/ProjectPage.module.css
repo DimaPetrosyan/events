@@ -84,36 +84,20 @@
   align-items: center;
 }
 
-/* Отзыв */
-.review {
+/* Описание проекта */
+.description {
   padding: 100px 0;
   text-align: center;
   background: var(--color-cream);
 }
 
-.quoteMark {
+.descriptionText {
   font-family: var(--font-serif);
-  font-size: 90px;
-  line-height: 0.4;
-  color: var(--color-accent);
-  height: 40px;
-}
-
-.quote {
-  font-family: var(--font-serif);
-  font-size: clamp(22px, 3vw, 32px);
-  line-height: 1.5;
+  font-size: clamp(20px, 2.6vw, 28px);
+  line-height: 1.6;
   max-width: 840px;
   margin: 0 auto;
   color: var(--color-text);
-}
-
-.author {
-  margin-top: 28px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  font-size: 14px;
-  color: var(--color-accent);
 }
 
 /* Галерея — masonry на flex-колонках (без пустот внутри колонок) */
@@ -271,7 +255,7 @@
 }
 
 @media (max-width: 560px) {
-  .review {
+  .description {
     padding: 70px 0;
   }
   .projectNav {

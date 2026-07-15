@@ -1,6 +1,9 @@
 import { Head } from 'vite-react-ssg'
 
-const SITE_URL = 'https://dimapetrosyan.github.io/events'
+// Полный адрес сайта для SEO-мета (canonical, og:url, og:image).
+// По умолчанию — GitHub Pages. Для другого домена задай при сборке:
+//   VITE_SITE_URL=https://zapp.handyhost.ru
+const SITE_URL = import.meta.env.VITE_SITE_URL || 'https://dimapetrosyan.github.io/events'
 
 export default function Seo({
   title,

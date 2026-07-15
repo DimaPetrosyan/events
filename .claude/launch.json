@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "preview", "--", "--port", "4173"],
       "port": 4173
+    },
+    {
+      "name": "me-event-dist-root",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", "dist", "-l", "4190"],
+      "port": 4190
     }
   ]
 }
