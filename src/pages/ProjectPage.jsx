@@ -8,6 +8,19 @@ import styles from './ProjectPage.module.css'
 // Ключ 'папка/имя' из URL фото — для поиска его размеров (резервируем место, без CLS)
 const sizeOf = (src) => photoSizes[src.split('/photos/')[1]?.replace('.webp', '')]
 
+// В галерее все кадры одной ориентации должны быть одной высоты, иначе сетка
+// выглядит неровной: у исходников пропорции гуляют (2000×1331…2000×1360,
+// 1333×2000…1500×2000), и «выпадающие» кадры выше соседей на десятки пикселей.
+// Поэтому подставляем единый бокс — 3:2 для горизонтальных, 2:3 для вертикальных;
+// лишнее подрезает object-fit: cover (в лайтбоксе фото открывается целиком).
+const GALLERY_BOX = { landscape: [1500, 1000], portrait: [1000, 1500] }
+const isPortrait = (src) => {
+  const size = sizeOf(src)
+  return !!size && size[1] > size[0]
+}
+const boxOf = (src) =>
+  sizeOf(src) ? GALLERY_BOX[isPortrait(src) ? 'portrait' : 'landscape'] : [undefined, undefined]
+
 // Количество колонок галереи в зависимости от ширины экрана
 function useColumnCount() {
   const [cols, setCols] = useState(3)
@@ -155,15 +168,17 @@ export default function ProjectPage() {
                 <button
                   key={i}
                   type="button"
-                  className={styles.galleryItem}
+                  className={`${styles.galleryItem} ${
+                    isPortrait(src) ? styles.portrait : ''
+                  }`}
                   onClick={() => setLightbox(i)}
                   aria-label={`Открыть фото ${i + 1}`}
                 >
                   <img
                     src={src}
                     alt={`${project.title} — фото ${i + 1}`}
-                    width={sizeOf(src)?.[0]}
-                    height={sizeOf(src)?.[1]}
+                    width={boxOf(src)[0]}
+                    height={boxOf(src)[1]}
                     loading="lazy"
                     decoding="async"
                   />

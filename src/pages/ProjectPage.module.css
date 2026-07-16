@@ -102,8 +102,9 @@
 
 /* Галерея — masonry на flex-колонках (без пустот внутри колонок) */
 .gallery {
+  --gallery-gap: 16px;
   display: flex;
-  gap: 16px;
+  gap: var(--gallery-gap);
   padding: 80px clamp(16px, 4vw, 48px);
 }
 
@@ -112,10 +113,11 @@
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--gallery-gap);
 }
 
 .galleryItem {
+  position: relative;
   overflow: hidden;
   /* сброс стилей кнопки */
   display: block;
@@ -126,10 +128,31 @@
   cursor: pointer;
 }
 
-.galleryItem img {
-  width: 100%;
-  height: auto;
+/* Высоту задаём через padding-top в процентах: он считается от ШИРИНЫ колонки,
+   поэтому пропорция точна на любой ширине экрана (в отличие от фиксированного
+   aspect-ratio, который не умеет учитывать отступ в пикселях).
+   Горизонтальный кадр — 3:2, то есть 2/3 = 66.667% ширины. */
+.galleryItem::before {
+  content: '';
   display: block;
+  padding-top: 66.667%;
+}
+
+/* Вертикальный кадр — ровно два горизонтальных плюс отступ между ними:
+   2 × 66.667% + gap. Тогда в соседних колонках два горизонтальных фото
+   заканчиваются на одной линии с одним вертикальным. */
+.galleryItem.portrait::before {
+  padding-top: calc(133.334% + var(--gallery-gap));
+}
+
+.galleryItem img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* Бокс фиксирован — cover подрезает лишнее вместо искажения кадра */
+  object-fit: cover;
   transition: transform 0.6s ease;
 }
 

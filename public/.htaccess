@@ -4,6 +4,17 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+
+  # Адреса проектов сменились вместе с названиями. 301 со старых на новые,
+  # чтобы старые ссылки и выдача поисковиков не отдавали 404.
+  RewriteRule ^project/zimnyaya-skazka/?$ /project/hrustalnoe-serdce [R=301,L]
+  RewriteRule ^project/evangelina/?$      /project/den-rozhdeniya-evy [R=301,L]
+  RewriteRule ^project/vypusknoy/?$       /project/vypusknoy-prezident [R=301,L]
+  RewriteRule ^project/alya-rus/?$        /project/russkaya-skazka [R=301,L]
+  RewriteRule ^project/novyy-god-lkp/?$   /project/novogodniy-vecher-lkp [R=301,L]
+  RewriteRule ^project/lesnaya-skazka/?$  /project/magiya-v-lesu [R=301,L]
+  RewriteRule ^project/nasha-svadba/?$    /project/on-ona-dozhd [R=301,L]
+
   RewriteRule ^index\.html$ - [L]
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

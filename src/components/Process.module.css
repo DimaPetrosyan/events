@@ -3,47 +3,113 @@
   background: var(--color-cream);
 }
 
-/* ==== Горизонтальный таймлайн (десктоп) ==== */
-.timelines {
+/* Боковые отступы — место под стрелки, чтобы они не наезжали на текст.
+   Переменной пользуются тени у краёв трека, чтобы совпадать с ним. */
+.slider {
+  --gutter: 66px;
   position: relative;
   margin-top: 56px;
-  display: flex;
-  flex-direction: column;
+  padding: 0 var(--gutter);
 }
 
-.timeline {
-  display: flex;
-  position: relative;
-}
-
-/* Горизонтальная линия по центру */
-.timeline::before {
+/* Мягкая тень у края трека вместо разделителя — подсказка, что этапы
+   продолжаются за краем. Включается только когда туда есть что листать. */
+.slider::before,
+.slider::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  background: var(--color-line);
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 1;
 }
 
+/* Два слоя. Нижний — полоска цвета фона: она перекрывает вертикальный
+   разделитель крайнего этапа, который приходится ровно на край трека,
+   иначе бордер просвечивал бы сквозь тень. Верхний — сама тень. */
+.slider::before {
+  left: var(--gutter);
+  background: linear-gradient(
+      to right,
+      rgba(134, 157, 172, 0.085),
+      rgba(134, 157, 172, 0)
+    ),
+    linear-gradient(
+      to right,
+      var(--color-cream) 0,
+      var(--color-cream) 2px,
+      rgba(0, 0, 0, 0) 2px
+    );
+}
+
+.slider::after {
+  right: var(--gutter);
+  background: linear-gradient(
+      to left,
+      rgba(134, 157, 172, 0.085),
+      rgba(134, 157, 172, 0)
+    ),
+    linear-gradient(
+      to left,
+      var(--color-cream) 0,
+      var(--color-cream) 2px,
+      rgba(0, 0, 0, 0) 2px
+    );
+}
+
+.fadeLeft::before,
+.fadeRight::after {
+  opacity: 1;
+}
+
+/* Этапы в один ряд с горизонтальной прокруткой.
+   scroll-snap выравнивает этап по левому краю, системную полосу прокрутки
+   прячем. Плавность листания — на стороне браузера (scrollBy c behavior:
+   smooth), поэтому scroll-behavior здесь не нужен.
+   gap нет: этапы разделяет вертикальный бордер. */
+.track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* 5 этапов в видимой части */
 .item {
-  flex: 1 1 0;
-  min-width: 0;
-  position: relative;
-  height: 380px;
+  flex: 0 0 20%;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+  /* Разделитель между этапами */
+  border-left: 1px solid rgba(134, 157, 172, 0.2);
 }
 
-/* Узел-кружок с номером на линии */
+/* У первого слева разделителя нет, у последнего справа — тем более
+   (бордер только слева), поэтому просто убираем внутренние отступы по краям */
+.item:first-child {
+  border-left: none;
+  padding-left: 0;
+}
+
+.item:last-child {
+  padding-right: 0;
+}
+
+/* Кружок с номером шага */
 .node {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: var(--color-cream);
+  background: var(--color-bg);
   border: 1px solid rgba(134, 157, 172, 0.4);
   color: var(--color-accent);
   font-family: var(--font-sans);
@@ -53,86 +119,84 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
-}
-
-/* Текстовый блок над/под линией */
-.content {
-  position: absolute;
-  left: 10px;
-  right: 10px;
-  text-align: center;
-}
-
-.up .content {
-  bottom: calc(50% + 28px);
-}
-
-.down .content {
-  top: calc(50% + 28px);
+  flex: none;
+  margin-bottom: 20px;
 }
 
 .stepTitle {
-  font-size: 21px;
+  font-size: 19px;
   font-weight: 400;
   margin-bottom: 12px;
 }
 
 .stepText {
   color: var(--color-text);
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
 }
 
-/* ==== Вертикальный таймлайн (мобильные) — без горизонтального скролла ==== */
-@media (max-width: 860px) {
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--color-line);
+  background: var(--color-bg);
+  color: var(--color-accent);
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+.arrow:hover {
+  background: var(--color-accent);
+  color: #fff;
+}
+
+/* Планшет — 3 этапа в видимой части */
+@media (max-width: 1080px) {
+  .item {
+    flex-basis: 33.333%;
+  }
+}
+
+/* Мобильные — по одному этапу. Стрелки остаются, поэтому боковые отступы
+   тоже: без них кнопки наехали бы на текст. Отступы и кнопки компактнее,
+   чтобы этапу осталась ширина. Листать можно и свайпом. */
+@media (max-width: 620px) {
   .process {
     padding: 72px 0;
   }
 
-  /* Ряды сливаются в один сплошной вертикальный список без пробела */
-  .timelines {
-    gap: 0;
+  .slider {
+    --gutter: 42px;
   }
 
-  /* Одна непрерывная вертикальная линия на весь список */
-  .timelines::before {
-    content: '';
-    position: absolute;
-    left: 24px;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--color-line);
-  }
-
-  .timeline {
-    flex-direction: column;
-    margin-top: 0;
-  }
-
-  /* Линии отдельных рядов убираем — вместо них общая на .timelines */
-  .timeline::before {
-    display: none;
+  .arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 15px;
   }
 
   .item {
-    height: auto;
-    padding: 16px 0 16px 68px;
+    flex-basis: 100%;
+    padding: 0 16px;
+    border-left: none;
   }
 
-  .node {
-    left: 24px;
-    top: 22px;
-    transform: translate(-50%, 0);
-    width: 34px;
-    height: 34px;
-    font-size: 16px;
-  }
-
-  .up .content,
-  .down .content {
-    position: static;
-    text-align: left;
+  .item:last-child {
+    padding-right: 16px;
   }
 }

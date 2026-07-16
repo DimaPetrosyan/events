@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite-react-ssg dev",
     "build": "vite-react-ssg build",
+    "photo-sizes": "node scripts/gen-photo-sizes.mjs",
     "build:prod": "DEPLOY_BASE=/ VITE_SITE_URL=https://me-event.ru vite-react-ssg build && SITE_URL=https://me-event.ru node scripts/retarget-domain.mjs",
     "preview": "vite preview",
     "preview:prod": "npm run build && node ./scripts/link-dist.mjs && serve .local-preview -l 4180"
