@@ -20,7 +20,7 @@
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 20px;
+  width: 16px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.35s ease;
@@ -34,7 +34,7 @@
   left: var(--gutter);
   background: linear-gradient(
       to right,
-      rgba(134, 157, 172, 0.085),
+      rgba(134, 157, 172, 0.08),
       rgba(134, 157, 172, 0)
     ),
     linear-gradient(
@@ -49,7 +49,7 @@
   right: var(--gutter);
   background: linear-gradient(
       to left,
-      rgba(134, 157, 172, 0.085),
+      rgba(134, 157, 172, 0.08),
       rgba(134, 157, 172, 0)
     ),
     linear-gradient(
@@ -172,31 +172,69 @@
   }
 }
 
-/* Мобильные — по одному этапу. Стрелки остаются, поэтому боковые отступы
-   тоже: без них кнопки наехали бы на текст. Отступы и кнопки компактнее,
-   чтобы этапу осталась ширина. Листать можно и свайпом. */
-@media (max-width: 620px) {
+/* Узкие экраны (до 768px) — вертикальный таймлайн вместо слайдера:
+   листать по горизонтали неудобно, а места по вертикали достаточно.
+   Разметка та же, меняется только раскладка. */
+@media (max-width: 768px) {
   .process {
     padding: 72px 0;
   }
 
   .slider {
-    --gutter: 42px;
+    --gutter: 0px;
   }
 
+  /* Слайдерная обвязка здесь не нужна */
+  .slider::before,
+  .slider::after,
   .arrow {
-    width: 36px;
-    height: 36px;
-    font-size: 15px;
+    display: none;
   }
 
-  .item {
-    flex-basis: 100%;
-    padding: 0 16px;
-    border-left: none;
+  .track {
+    position: relative;
+    flex-direction: column;
+    overflow: visible;
+    scroll-snap-type: none;
   }
 
+  /* Непрерывная вертикальная линия на весь список.
+     z-index обязателен: линия — псевдоэлемент ::after, то есть последняя
+     в порядке отрисовки, и без него она легла бы поверх кружков. */
+  .track::after {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-line);
+    z-index: 0;
+  }
+
+  .item,
+  .item:first-child,
   .item:last-child {
-    padding-right: 16px;
+    flex-basis: auto;
+    position: relative;
+    /* Отступ слева — под линию с номером */
+    padding: 16px 0 16px 68px;
+    border-left: none;
+    scroll-snap-align: none;
+  }
+
+  /* Кружок с номером садится на линию и перекрывает её собой */
+  .node {
+    position: absolute;
+    left: 24px;
+    top: 22px;
+    transform: translate(-50%, 0);
+    margin-bottom: 0;
+    font-size: 16px;
+    z-index: 1;
+  }
+
+  .stepText {
+    font-size: 16px;
   }
 }
