@@ -9,6 +9,7 @@
     "build": "vite-react-ssg build",
     "photo-sizes": "node scripts/gen-photo-sizes.mjs",
     "build:prod": "DEPLOY_BASE=/ VITE_SITE_URL=https://me-event.ru vite-react-ssg build && SITE_URL=https://me-event.ru node scripts/retarget-domain.mjs",
+    "zip:prod": "npm run build:prod && rm -f me-event-site-dist.zip && (cd dist && zip -r -X ../me-event-site-dist.zip . -x '.DS_Store' -x '**/.DS_Store') && echo '\\nГотово: me-event-site-dist.zip'",
     "preview": "vite preview",
     "preview:prod": "npm run build && node ./scripts/link-dist.mjs && serve .local-preview -l 4180"
   },
