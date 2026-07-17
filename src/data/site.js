@@ -3,7 +3,7 @@
 
 export const site = {
   brand: 'ME Event',
-  tagline: 'Каждая история заслуживает своего события.',
+  tagline: 'Каждая история заслуживает своего события',
 
   nav: [
     { label: 'О нас', href: '#about' },
