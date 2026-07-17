@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { heroSlides } from '../data/projects.js'
 import { site } from '../data/site.js'
+import { isSectionAtViewportCenter, isLaptop } from '../lib/viewport.js'
 import styles from './Hero.module.css'
 
 const INTERVAL = 3500
@@ -21,6 +22,23 @@ export default function Hero() {
       const img = new Image()
       img.src = slide.src
     })
+  }, [])
+
+  // Стрелки клавиатуры листают слайды — только на ноутбуках и только когда
+  // hero сейчас по центру экрана (иначе стрелками управляет другая секция).
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      if (!isLaptop() || !isSectionAtViewportCenter('top')) return
+      e.preventDefault()
+      setIndex((i) =>
+        e.key === 'ArrowLeft'
+          ? (i - 1 + heroSlides.length) % heroSlides.length
+          : (i + 1) % heroSlides.length
+      )
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
   }, [])
 
   return (

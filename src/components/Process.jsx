@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { process } from '../data/site.js'
+import { isSectionAtViewportCenter, isLaptop } from '../lib/viewport.js'
 import styles from './Process.module.css'
 
 export default function Process() {
@@ -29,13 +30,26 @@ export default function Process() {
   }, [update])
 
   // Листаем на один этап штатной прокруткой браузера
-  const slide = (dir) => {
+  const slide = useCallback((dir) => {
     const el = trackRef.current
     if (!el) return
     const item = el.querySelector('article')
     const step = item ? item.getBoundingClientRect().width : el.clientWidth
     el.scrollBy({ left: dir * step, behavior: 'smooth' })
-  }
+  }, [])
+
+  // Стрелки клавиатуры листают этапы — только на ноутбуках и только когда
+  // секция сейчас по центру экрана (иначе стрелками управляет hero-слайдер).
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      if (!isLaptop() || !isSectionAtViewportCenter('process')) return
+      e.preventDefault()
+      slide(e.key === 'ArrowLeft' ? -1 : 1)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [slide])
 
   return (
     <section className={styles.process} id="process">

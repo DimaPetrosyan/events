@@ -7,10 +7,20 @@
   height: 82vh;
   min-height: 480px;
   background-size: cover;
-  background-position: center;
+  /* Точку фокуса задаёт ProjectPage переменной --hero-pos */
+  background-position: var(--hero-pos, center 25%);
   position: relative;
   display: flex;
   align-items: flex-end;
+}
+
+/* Узкие экраны: фон масштабируется по высоте и обрезает бока (на телефоне
+   уходит больше половины ширины). Для кадров, где пара смещена от центра,
+   переключаемся на свою точку фокуса, иначе людей срезает. */
+@media (max-width: 900px) {
+  .hero {
+    background-position: var(--hero-pos-narrow, var(--hero-pos, center 25%));
+  }
 }
 
 .heroOverlay {
@@ -206,6 +216,9 @@
   justify-content: center;
   padding: 40px 72px;
   animation: lbFade 0.2s ease;
+  /* Тач-жесты по оверлею не прокручивают страницу под ним */
+  touch-action: none;
+  overscroll-behavior: contain;
 }
 
 @keyframes lbFade {

@@ -72,3 +72,13 @@
     height: 56vh;
   }
 }
+
+/* Телефон — кнопка на всю ширину */
+@media (max-width: 600px) {
+  .cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}

@@ -1,8 +1,9 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect, useCallback, useRef } from 'react'
 import Seo from '../components/Seo.jsx'
 import { getProject, projects } from '../data/projects.js'
 import { photoSizes } from '../data/photoSizes.js'
+import { isElAtViewportCenter, isLaptop } from '../lib/viewport.js'
 import styles from './ProjectPage.module.css'
 
 // Ключ 'папка/имя' из URL фото — для поиска его размеров (резервируем место, без CLS)
@@ -38,8 +39,10 @@ function useColumnCount() {
 
 export default function ProjectPage() {
   const { slug } = useParams()
+  const navigate = useNavigate()
   const project = getProject(slug)
   const columnCount = useColumnCount()
+  const heroRef = useRef(null)
 
   // Лайтбокс: индекс открытого фото или null
   const [lightbox, setLightbox] = useState(null)
@@ -77,6 +80,14 @@ export default function ProjectPage() {
   useEffect(() => {
     if (lightbox === null) return
     document.body.style.overflow = 'hidden'
+
+    // overflow:hidden не держит тач-скролл в iOS Safari, поэтому глушим
+    // прокрутку фона напрямую: гасим дефолт у touchmove. Слушатель нативный
+    // и не passive — у React onTouchMove preventDefault не срабатывает.
+    // Свайп по фото завязан на touchstart/touchend, так что не ломается.
+    const blockScroll = (e) => e.preventDefault()
+    document.addEventListener('touchmove', blockScroll, { passive: false })
+
     const onKey = (e) => {
       if (e.key === 'Escape') close()
       else if (e.key === 'ArrowLeft') prev()
@@ -85,9 +96,28 @@ export default function ProjectPage() {
     window.addEventListener('keydown', onKey)
     return () => {
       window.removeEventListener('keydown', onKey)
+      document.removeEventListener('touchmove', blockScroll)
       document.body.style.overflow = ''
     }
   }, [lightbox, close, prev, next])
+
+  // Стрелки клавиатуры на верху страницы проекта — переход к соседнему
+  // проекту. Только на ноутбуках, когда hero по центру экрана и лайтбокс
+  // закрыт (иначе стрелки листают фото в лайтбоксе).
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return
+      if (lightbox !== null) return
+      if (!isLaptop() || !isElAtViewportCenter(heroRef.current)) return
+      const idx = projects.findIndex((p) => p.slug === slug)
+      const target = e.key === 'ArrowLeft' ? projects[idx - 1] : projects[idx + 1]
+      if (!target) return
+      e.preventDefault()
+      navigate(`/project/${target.slug}`)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [slug, lightbox, navigate])
 
   if (!project) {
     return (
@@ -117,10 +147,19 @@ export default function ProjectPage() {
 
       {/* Большое фото в начале */}
       <header
+        key={`${project.slug}-header`}
+        ref={heroRef}
         className={styles.hero}
         style={{
           backgroundImage: `url(${project.hero})`,
-          backgroundPosition: project.heroFocus || 'center 25%',
+          // Кадрирование отдаём в CSS переменными: на узком экране фон
+          // масштабируется по высоте и сильно режет бока, поэтому для кадров
+          // с парой не по центру нужна своя точка фокуса (heroFocusMobile).
+          // Через inline backgroundPosition так не сделать — медиазапрос
+          // не переопределяет инлайн-стиль.
+          '--hero-pos': project.heroFocus || 'center 25%',
+          '--hero-pos-narrow':
+            project.heroFocusMobile || project.heroFocus || 'center 25%',
         }}
       >
         <div className={styles.heroOverlay} />
@@ -158,7 +197,7 @@ export default function ProjectPage() {
       )}
 
       {/* Галерея — masonry на flex-колонках, клик открывает лайтбокс */}
-      <section className={styles.gallery}>
+      <section key={project.slug} className={styles.gallery}>
         {Array.from({ length: columnCount }, (_, col) => (
           <div key={col} className={styles.galleryCol}>
             {gallery
